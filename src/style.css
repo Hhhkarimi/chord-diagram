@@ -24,3 +24,36 @@
   .workspace:fullscreen{height:100dvh}
   .workspace:fullscreen #chart svg{max-height:none}
 }
+
+/* Fit the diagram itself into the preview instead of scaling its export margins. */
+#chart{flex-direction:column;padding:10px 16px;gap:8px}
+#chart svg{flex:1;min-height:0;width:100%;height:auto;background:transparent!important}
+.preview-heading{flex-shrink:0;text-align:center;color:var(--text);padding:4px 0}
+.preview-heading h2{font-size:20px;line-height:1.5}
+.preview-heading p{font-size:11px;line-height:1.8;color:var(--muted)}
+.preview-legend{display:flex;flex-shrink:0;justify-content:center;flex-wrap:wrap;gap:6px 22px;padding:5px 0;font-size:12px;color:var(--muted)}
+.preview-legend span{display:flex;align-items:center;gap:8px}
+.preview-legend i{width:8px;height:8px;flex-shrink:0;border-radius:50%}
+@media screen and (min-width:761px){
+ header{height:72px}
+ .workspace{gap:8px}
+ .workspace-toolbar{min-height:36px}
+ .canvas-meta{display:none}
+ .canvas-bottom{padding:4px 12px}
+ #chart svg{height:0;max-height:none}
+ .stats>div{flex-direction:row;align-items:center;gap:10px;padding:6px 12px}
+ .stats strong{font-size:19px}
+ .quick-export small{display:none}
+ footer{padding-top:8px;padding-bottom:8px}
+}
+@media(max-width:760px){
+ #chart svg{flex:none;min-height:250px;max-height:360px}
+ .preview-heading h2{font-size:17px}
+ .preview-legend{gap:6px 14px;font-size:11px}
+ #chart .diagram text{font-size:var(--label-size)}
+ #chart .diagram tspan[dy]{font-size:calc(var(--label-size)*0.78)}
+}
+@media print{
+ #chart{padding:0}
+ #chart svg{flex:none;height:auto;max-height:none}
+}
