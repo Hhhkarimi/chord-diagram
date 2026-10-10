@@ -1,5 +1,5 @@
 import * as esbuild from 'esbuild-wasm/esm/browser.js';
-import {mkdir,readFile,writeFile,stat} from 'node:fs/promises';
+import {mkdir,readFile,writeFile,stat,cp} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 import {resolve,dirname,extname,isAbsolute} from 'node:path';
 globalThis.self=globalThis;
@@ -21,5 +21,6 @@ const result=await esbuild.build({entryPoints:['src/main.ts'],bundle:true,outdir
 for(const file of result.outputFiles){const output=resolve(file.path.replace(/^[/\\]+/,''));await mkdir(dirname(output),{recursive:true});await writeFile(output,file.contents);}
 const html=await readFile('index.html','utf8');
 await writeFile('dist/index.html',html.replace('<script type="module" src="/src/main.ts"></script>','<link rel="stylesheet" href="./assets/app.css"><script type="module" src="./assets/app.js"></script>'));
+await cp('licenses','dist/licenses',{recursive:true});
 console.log('Production build ready in dist/');
 
